@@ -12,7 +12,7 @@ for path in os.listdir(dir_path):
 
 label="Parasitized"
 
-file = open("C:\Big_data\FC42-BDSM\Aashish\malaria\csv\dataset.csv","a")
+file = open(".\csv\dataset.csv","a")
 
 dirList.pop(13763)
 
