@@ -22,10 +22,11 @@ from sklearn.linear_model import LinearRegression
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Dropout
 
-while True:
-    data = pd.read_csv(train_file_loc)
+def stock():
+    # class stock_pred:
+    data = pd.read_csv('C:/Users/cycob/Downloads/Google_train_data.csv')
     # tesla.info()
-    choose_loc = input("Please give the column number where the close field lies: ")
+    choose_loc = int(input("Please give the column number where the close field lies: "))
 
     data["Close"] = pd.to_numeric(data.Close, errors='coerce')
     data = data.dropna()
@@ -67,7 +68,10 @@ while True:
 
     hist = model.fit(x_train, y_train, epochs=10, batch_size=32, verbose=2)
 
-    testdata = pd.read_csv(test_data_file_loc)
+    # joblib.dump(model,stock_mar)
+
+
+    testdata = pd.read_csv('C:/Users/cycob/Downloads/Google_test_data.csv')
     choose_loc = 4 
     # input("Please give the column number where the close field lies: ")
     testdata["Close"] = pd.to_numeric(testdata.Close, errors='coerce')
@@ -96,5 +100,3 @@ while True:
     plt.ylabel('Stock price')
     plt.legend()
     plt.show()
-
-return ("Invalid Input")

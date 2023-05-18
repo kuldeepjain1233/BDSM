@@ -1,6 +1,9 @@
 import json
 import re
 import unknown_questions
+import sys
+from Kuldeep.stock_m import stock
+# import Kuldeep.stock_m as sm
 
 
 # Load JSON data
@@ -63,4 +66,8 @@ def get_response(input_string):
 
 while True:
     user_input = input("You: ")
+    if("HOUSE PRICE") in resp:
+        print("inside house code")
+    if("STOCK PRICE") in resp:
+        stock()
     print("Bot:", get_response(user_input))
