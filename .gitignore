@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ./Aashish/malaria/cell_images/
 ./Kuldeep/test/*
 ./Kuldeep/train/*
 ./Kuldeep/val/*
+=======
+./Aashish/malaria/cell_images
+.venv/
+>>>>>>> f3e3762bc77e96779690edd7387adcf29d77289f
