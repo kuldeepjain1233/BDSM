@@ -1,4 +1,4 @@
 ./Aashish/malaria/cell_images/
-./Kuldeep/test/
-./Kuldeep/train/
-./Kuldeep/val/
+./Kuldeep/test/*
+./Kuldeep/train/*
+./Kuldeep/val/*
