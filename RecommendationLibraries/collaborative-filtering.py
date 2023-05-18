@@ -53,8 +53,8 @@ class CollaborativeRecommender :
         return similar_movies
 
 def preprocessMovies():
-    ratings = pd.read_csv('dataset/ratings.csv')
-    movies = pd.read_csv('dataset/movies.csv')
+    ratings = pd.read_csv('movies-dataset/ratings.csv')
+    movies = pd.read_csv('movies-dataset/movies.csv')
     ratings = pd.merge(movies,ratings) .drop(['genres','timestamp'],axis=1)
     return ratings
 
