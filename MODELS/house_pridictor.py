@@ -9,7 +9,7 @@ from sklearn.metrics import r2_score
 import pickle
 
 
-data = pd.read_csv('C:\Big_data\FC42-BDSM\Aashish\house_price\csv\Bengaluru_House_Data.csv')
+data = pd.read_csv('CSV\house-dataset\Bengaluru_House_Data.csv')
 # print(data.isna().sum())
 data.drop(columns=['area_type','availability','society','balcony'],inplace=True)
 data['location'] = data['location'].fillna('Sarjapur Road')
@@ -68,7 +68,7 @@ def bhk_outlier_remover(df):
 data=bhk_outlier_remover(data)
 data.drop(columns=['size','price_per_sqft'],inplace=True)
 # print(data.info())
-data.to_csv('csv/Cleaned_data.csv')
+data.to_csv('CSV/house-dataset/Bengaluru_Cleaned_data.csv')
 x=data.drop(columns=['price'])
 y=data['price']
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=0)

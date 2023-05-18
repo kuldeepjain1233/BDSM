@@ -2,7 +2,11 @@ import json
 import re
 import unknown_questions
 import sys
-from Kuldeep.stock_m import stock
+# from MODE.stock_m import stock
+from MODELS.house_main import house
+from MODELS.malaria_classification import malaria
+from MODELS.stock_m import stock
+from MODELS.breast_cancer import b_cancer
 # import Kuldeep.stock_m as sm
 
 
@@ -66,8 +70,13 @@ def get_response(input_string):
 
 while True:
     user_input = input("You: ")
-    if("HOUSE PRICE") in resp:
-        print("inside house code")
-    if("STOCK PRICE") in resp:
+    resp=get_response(user_input)
+    if("HOUSE") in resp:
+        house()
+    if("MALARIA") in resp:
+        malaria()
+    if("STOCKIN") in resp:
         stock()
-    print("Bot:", get_response(user_input))
+    if("GOOD") in resp:
+        b_cancer()
+        
