@@ -14,7 +14,7 @@ label="Parasitized"
 
 file = open("C:\Big_data\FC42-BDSM\Aashish\malaria\csv\dataset.csv","a")
 
-dirList.pop(13764)
+dirList.pop(13763)
 
 for img_path in dirList:
     im = cv2.imread(img_path)
