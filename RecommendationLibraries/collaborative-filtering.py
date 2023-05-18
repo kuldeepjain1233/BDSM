@@ -3,28 +3,46 @@ from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-class MovieRecommender :
+class CollaborativeRecommender :
+    
+    def __init__(self, ratings: pd.DataFrame, userid, titleid, ratingid, highestRating : int) -> None:
+        self.putDataset(ratings, userid, titleid, ratingid, highestRating )
+        self.correlationMatrix = pd.DataFrame()
+        
+    def saveCorrelationMatrix(self, filename = 'default-dataset'):
+        self.correlationMatrix.to_pickle(filename)
+        
+    def loadCorrelationMatrix(self, filename = 'default-dataset'):
+        self.correlationMatrix = pd.read_pickle(filename)
+        
     def putDataset(self, ratings: pd.DataFrame, userid, titleid, ratingid, highestRating : int):
         self.ratings = ratings
         self.userid = userid
         self.titleid = titleid
         self.ratingid = ratingid
         self.highestRating = highestRating
+        
     def putPrefs(self, listOfMovieRatings):
         self.moviePrefs = listOfMovieRatings
         
     def getRatingsByUserId(self):
         # debugging
-        self.ratings = self.ratings.groupby(self.userid).filter(lambda x: len(x) >= 200)
+        self.ratings = self.ratings.groupby(self.userid).filter(lambda x: len(x) >= 500)
         print(self.ratings)
         self.ratingsByUserId =  self.ratings.pivot_table(index=self.userid,columns=self.titleid,values=self.ratingid).dropna(thresh=10, axis='columns').fillna(0,axis=1)
         return self.ratingsByUserId
     
-    def getCorrelationMatrix(ratingByUserId : pd.DataFrame):
-        return ratingByUserId.corr(method='pearson')
+    def getCorrelationMatrix(self,ratingByUserId : pd.DataFrame):
+        self.correlationMatrix = ratingByUserId.corr(method='pearson')
+        return self.correlationMatrix
     
     def getSimilarToMovie(self, movie_name,rating):
-        similar_ratings = MovieRecommender.getCorrelationMatrix(self.getRatingsByUserId())[movie_name]*(rating-float(self.highestRating)/2)
+        if self.correlationMatrix.empty:
+            similar_ratings = self.getCorrelationMatrix(
+                self.getRatingsByUserId()
+                )[movie_name]*(rating-float(self.highestRating)/2)
+        else:
+            similar_ratings = self.correlationMatrix[movie_name]*(rating-float(self.highestRating)/2)
         similar_ratings = similar_ratings.sort_values(ascending=False)
         return similar_ratings
     
@@ -35,8 +53,8 @@ class MovieRecommender :
         return similar_movies
 
 def preprocessMovies():
-    ratings = pd.read_csv('dataset/ratings.csv')
-    movies = pd.read_csv('dataset/movies.csv')
+    ratings = pd.read_csv('movies-dataset/ratings.csv')
+    movies = pd.read_csv('movies-dataset/movies.csv')
     ratings = pd.merge(movies,ratings) .drop(['genres','timestamp'],axis=1)
     return ratings
 
@@ -47,21 +65,22 @@ def preprocessBooks():
     print(bookratin[bookratin.duplicated(['ISBN', 'User-ID'])])
     return bookratin
 def test():
+    # # make sure to preprocess the movie and book datasets
     movieratings = preprocessMovies()
     bookratings = preprocessBooks()
     print(bookratings.head(20))
     print(movieratings.head(20))
-    recommender = MovieRecommender()
-    bookrecom = MovieRecommender()
-    bookrecom.putDataset(bookratings, 'User-ID', 'Book-Title', 'Book-Rating', 10)
-    recommender.putDataset(movieratings, 'userId', 'title', 'rating', 5)
-    newprefs = [(2,4), (3,5), (34, 2)]
+    recommender = CollaborativeRecommender(movieratings, 'userId', 'title', 'rating', 5)
+    bookrecom = CollaborativeRecommender(bookratings, 'User-ID', 'Book-Title', 'Book-Rating', 10)
+    recommender.loadCorrelationMatrix()
     testprefs = [("Shawshank Redemption, The (1994)",5),("Alice in Wonderland (2010)",1),("Aliens (1986)",1),("2001: A Space Odyssey (1968)",2)]
     bookprefs = [["It", 8]]
     bookrecom.putPrefs(bookprefs)
     recommender.putPrefs(testprefs)
-   
+    
     print(recommender.getSimilarToMovies())
     print(bookrecom.getSimilarToMovies())
+    # save the trained correlation matrix
+    recommender.saveCorrelationMatrix()
     
 test()
