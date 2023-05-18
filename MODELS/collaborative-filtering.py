@@ -1,7 +1,7 @@
 import pandas as pd
 from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
-
+import os
 
 class CollaborativeRecommender :
     
@@ -13,7 +13,10 @@ class CollaborativeRecommender :
         self.correlationMatrix.to_pickle(filename)
         
     def loadCorrelationMatrix(self, filename = 'default-dataset'):
-        self.correlationMatrix = pd.read_pickle(filename)
+        if(os.path.isfile(filename)):
+            self.correlationMatrix = pd.read_pickle(filename)
+        else:
+            pass
         
     def putDataset(self, ratings: pd.DataFrame, userid, titleid, ratingid, highestRating : int):
         self.ratings = ratings
@@ -53,14 +56,14 @@ class CollaborativeRecommender :
         return similar_movies
 
 def preprocessMovies():
-    ratings = pd.read_csv('movies-dataset/ratings.csv')
-    movies = pd.read_csv('movies-dataset/movies.csv')
+    ratings = pd.read_csv('./CSV/movies-dataset/movie_ratings.csv')
+    movies = pd.read_csv('./CSV/movies-dataset/movies.csv')
     ratings = pd.merge(movies,ratings) .drop(['genres','timestamp'],axis=1)
     return ratings
 
 def preprocessBooks():
-    ratings = pd.read_csv('books-dataset/Ratings.csv')
-    books = pd.read_csv('books-dataset/Books.csv', low_memory= False)
+    ratings = pd.read_csv('./CSV/books-dataset/Ratings.csv')
+    books = pd.read_csv('./CSV/books-dataset/Books.csv', low_memory= False)
     bookratin = pd.merge(books, ratings)[['ISBN', 'Book-Title', 'User-ID', 'Book-Rating']]
     print(bookratin[bookratin.duplicated(['ISBN', 'User-ID'])])
     return bookratin
