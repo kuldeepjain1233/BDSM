@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 # %matlotlib inline
-
+import joblib
 import chart_studio.plotly as py
 import plotly.graph_objs as go
 from plotly.offline import plot
@@ -21,10 +21,14 @@ from sklearn.linear_model import LinearRegression
 
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Dropout
+from tkinter import *
+from tkinter import filedialog
 
 def stock():
     # class stock_pred:
-    data = pd.read_csv('C:/Users/cycob/Downloads/Google_train_data.csv')
+    # data = pd.read_csv('.\CSV\stock-dataset\Google_test_data.csv')
+    print("ENTER TRAINING DATASET:")
+    data = pd.read_csv(filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("CSV files", "*.csv"), ("Image files", "*.png;*.jpg;*.jpeg"))))
     # tesla.info()
     choose_loc = int(input("Please give the column number where the close field lies: "))
 
@@ -68,12 +72,13 @@ def stock():
 
     hist = model.fit(x_train, y_train, epochs=10, batch_size=32, verbose=2)
 
-    # joblib.dump(model,stock_mar)
+    joblib.dump(model,'stock_mar')
+    load_mod = joblib.load('stock_mar')
 
-
-    testdata = pd.read_csv('C:/Users/cycob/Downloads/Google_test_data.csv')
-    choose_loc = 4 
-    # input("Please give the column number where the close field lies: ")
+    # testdata = pd.read_csv('.\CSV\stock-dataset\Google_test_data.csv')
+    print("ENTER TESTING DATASET:")
+    testdata=pd.read_csv(filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("CSV files", "*.csv"), ("Image files", "*.png;*.jpg;*.jpeg"))))
+    choose_loc = int(input("Please give the column number where the testing data of the close field lies: "))
     testdata["Close"] = pd.to_numeric(testdata.Close, errors='coerce')
     testdata = testdata.dropna()
     testdata = testdata.iloc[:,choose_loc:choose_loc+1]
@@ -89,7 +94,7 @@ def stock():
     x_test = np.array(x_test)
     x_test = np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
 
-    test_pred = model.predict(x_test)
+    test_pred = load_mod.predict(x_test)
 
     predicted_price = sc.inverse_transform(test_pred)
 
@@ -100,3 +105,8 @@ def stock():
     plt.ylabel('Stock price')
     plt.legend()
     plt.show()
+    window = Tk()
+    # button = Button(text="Open", command=)
+    # button.pack()
+    window.mainloop()
+# stock()

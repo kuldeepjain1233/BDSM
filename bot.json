@@ -41,7 +41,7 @@
     },
     {
         "user_input": ["breast", "cancer", "detection"],
-        "bot_response": "BREAST CANCER DETECTION MODEL",
+        "bot_response": "HOPE YOU'RE ALL GOOD!!",
         "necessary_words": ["breast"] 
     },
     {
@@ -51,18 +51,19 @@
     },
     {
         "user_input": ["malaria", "detection"],
-        "bot_response": "MALARIA DETECTION MODEL",
+        "bot_response": "HOPE YOU WERE ABLE TO FIGURE OUT IF YOU HAD MALARIA!!",
         "necessary_words": ["malaria"] 
     },
     {
         "user_input": ["stock", "price", "prediction", "i", "want", "predicted", "of", "a", "the", "to"],
-        "bot_response": "STOCK PRICE PREDICTION MODEL",
+        "bot_response": "HOPE YOU HAVE FUN STOCKIN!!!",
         "necessary_words": ["stock"] 
     },
     {
         "user_input": ["house", "price", "prediction", "i", "want", "predicted", "of", "a", "the", "to"],
-        "bot_response": "HOUSE PRICE PREDICTION MODEL",
+        "bot_response": "HOPE YOU FOUND THE RIGHT HOUSE FOR YOU!!",
         "necessary_words": ["house"] 
     }
+    
 
 ]
