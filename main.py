@@ -9,6 +9,7 @@ from MODELS.stock_m import stock
 from MODELS.breast_cancer import b_cancer
 from MODELS.brain_test import br_test
 from MODELS.movie import movie
+from MODELS.book import mbook
 # from MODELS.collaborativefiltering import CollaborativeRecommender, preprocessBooks, preprocessMovies
 # import Kuldeep.stock_m as sm
 
@@ -86,7 +87,11 @@ while True:
     if ("GOOD") in resp:
         b_cancer()
     if ("MOVIES") in resp:
+        print("SURE, ENTER A MOVIE/MOVIES THAT YOU HAVE ALREADY WATCHED:")
         movie()
+    if ("BOOKS") in resp:
+        print("SURE, ENTER A BOOK THAT YOU HAVE ALREADY READ:")
+        mbook()
     if ("BRAIN") in resp:
         br_test()
     if ("Goodbye") in resp:

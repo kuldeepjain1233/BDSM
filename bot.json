@@ -36,7 +36,7 @@
       },
     {
         "user_input": ["books", "recommendations", "recommendation", "i", "want", "to", "read", "a"],
-        "bot_response": "BOOK MODEL",
+        "bot_response": "HAVE FUN READIN THESE BOOKS!!!",
         "necessary_words": ["book"] 
     },
     {
