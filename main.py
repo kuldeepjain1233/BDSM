@@ -7,6 +7,9 @@ from MODELS.house_main import house
 from MODELS.malaria_classification import malaria
 from MODELS.stock_m import stock
 from MODELS.breast_cancer import b_cancer
+from MODELS.brain_test import br_test
+from MODELS.movie import movie
+# from MODELS.collaborativefiltering import CollaborativeRecommender, preprocessBooks, preprocessMovies
 # import Kuldeep.stock_m as sm
 
 
@@ -20,10 +23,11 @@ def load_json(file):
 # Store JSON data
 response_data = load_json("bot.json")
 
+
 def get_response(input_string):
     input_string = input_string.lower()
     # split_message = input_string.lower().split(' ')
-    split_message=re.split(r'\s+|[,;?!.-]\s*',input_string.lower())
+    split_message = re.split(r'\s+|[,;?!.-]\s*', input_string.lower())
     score_list = []
 
     # Check all responses
@@ -37,19 +41,20 @@ def get_response(input_string):
             # required_score = sum(word in input_string for word in necessary_words)
             # if required_score != len(necessary_words):
             #     continue
-            for word in split_message :
-                if word in necessary_words :
-                    required_score +=1
+            for word in split_message:
+                if word in necessary_words:
+                    required_score += 1
         # regular expression pattern for the response phrases
-        pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, response["user_input"])))
+        pattern = r'\b(?:{})\b'.format(
+            '|'.join(map(re.escape, response["user_input"])))
 
         # input string matches the pattern using regular expression or not
         # if re.search(pattern, input_string):
         #     response_score += 1
-        if required_score == len(necessary_words) :
-            for word in split_message :
+        if required_score == len(necessary_words):
+            for word in split_message:
                 if word in response['user_input']:
-                    response_score +=1
+                    response_score += 1
 
         # Add score to list
         score_list.append(response_score)
@@ -68,15 +73,23 @@ def get_response(input_string):
 
     return unknown_questions.random_string()
 
+
 while True:
     user_input = input("You: ")
-    resp=get_response(user_input)
-    if("HOUSE") in resp:
+    resp = get_response(user_input)
+    if ("HOUSE") in resp:
         house()
-    if("MALARIA") in resp:
+    if ("MALARIA") in resp:
         malaria()
-    if("STOCKIN") in resp:
+    if ("STOCKIN") in resp:
         stock()
-    if("GOOD") in resp:
+    if ("GOOD") in resp:
         b_cancer()
-        
+    if ("MOVIES") in resp:
+        movie()
+    if ("BRAIN") in resp:
+        br_test()
+    if ("Goodbye") in resp:
+        print("Bot:", get_response(user_input))
+        exit()
+    print("Bot:", get_response(user_input))
