@@ -4,25 +4,32 @@ import os
 import math
 import shutil
 import glob
-import tensorflow.compat.v1 as tf
+import tensorflow
 import keras
+import joblib
+import pickle
 
+
+from tensorflow.keras.utils import load_img
+from tensorflow.keras.utils import img_to_array
 from keras.layers import Conv2D, MaxPool2D, Dropout, Flatten, Dense, BatchNormalization, GlobalAveragePooling2D
 from keras.models import Sequential
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint, EarlyStopping
+from tkinter import *
+from tkinter import filedialog
 # from keras.preprocessing.image import load_img, img_to_array
 
-tf.disable_v2_behavior()
+# tf.disable_v2_behavior()
 
-config = tf.ConfigProto(device_count={'GPU':1,'CPU':4})
-sess = tf.Session(config=config)
-keras.backend.set_session(sess)
+# config = tf.ConfigProto(device_count={'GPU':1,'CPU':4})
+# sess = tf.Session(config=config)
+# keras.backend.set_session(sess)
+# # test_dataset = a
 
-ROOT_DIR = "C:/Users/cycob/Downloads/brain_tumor_data_set"
-    # test_dataset = a
-
-class brain_c():
+def brain_c():
+    ROOT_DIR = "C:/Users/aashi/Downloads/brain_tumor_data_set"
+    # ROOT_DIR = filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("CSV files", "*.csv"), ("Image files", "*.png;*.jpg;*.jpeg")))
     number_of_images = {}
 
     for dir in os.listdir(ROOT_DIR):
@@ -30,15 +37,15 @@ class brain_c():
 
 
     def datafolder(p,split):
-        if not os.path.exists("./Kuldeep"+p):
-            os.mkdir("./Kuldeep"+p)
+        if not os.path.exists("./"+p):
+            os.mkdir("./"+p)
 
             for dir in os.listdir(ROOT_DIR):
-                os.makedirs("./Kuldeep"+p+"./Kuldeep"+dir)
+                os.makedirs("./"+p+"./"+dir)
             
                 for img in np.random.choice(a=os.listdir(os.path.join(ROOT_DIR,dir)), size = (math.floor(split*number_of_images[dir])-5),replace=False):
                     o = os.path.join(ROOT_DIR,dir,img)
-                    d = os.path.join("./Kuldeep"+p,dir)
+                    d = os.path.join("./"+p,dir)
                     shutil.copy(o, d)
                     os.remove(o)
 
@@ -84,42 +91,49 @@ class brain_c():
 
         return image
 
-    train_data = preprocessingImages1("C:/Users/cycob/Desktop/FC42-BDSM/Kuldeep/train")
+    train_data = preprocessingImages1("C:/Big_data/MAIN_PROJ/FC42-BDSM/train")
 
-    val_data = preprocessingImages2("C:/Users/cycob/Desktop/FC42-BDSM/Kuldeep/val")
+    val_data = preprocessingImages2("C:/Big_data/MAIN_PROJ/FC42-BDSM/val")
 
-    test_data = preprocessingImages2("C:/Users/cycob/Desktop/FC42-BDSM/Kuldeep/train")
+    test_data = preprocessingImages2("C:/Big_data/MAIN_PROJ/FC42-BDSM/test")
 
     es = EarlyStopping(monitor="val_accuracy", min_delta=0.01,patience=3,verbose=1,mode='auto')
 
-    mc = ModelCheckpoint(monitor="val accuracy", filepath="./Kuldeep/bestmodel.h5",verbose=1,save_best_only=True,mode='auto')
+    mc = ModelCheckpoint(monitor="val accuracy", filepath="./bestmodel.h5",verbose=1,save_best_only=True,mode='auto')
 
     cd = [es,mc]
 
-    hs = model.fit_generator(generator=train_data,steps_per_epoch=8, epochs=10, verbose = 1,validation_data=val_data, validation_steps = 16, callbacks=cd)
+    hs = model.fit_generator(generator=train_data,steps_per_epoch=8, epochs=25, verbose = 1,validation_data=val_data, validation_steps = 16, callbacks=cd)
 
-    h = hs.history
+    # with open('model_pickle','wb') as f:
+    #     pickle.dump(model,f)
 
-    plt.plot(h['accuracy'])
-    plt.plot(h['val_accuracy'])
+    joblib.dump(model, 'brain_can')
 
-    plt.title("acc vs val-acc")
+    # h = hs.history
 
-    # test_path = abc
+    # plt.plot(h['accuracy'])
+    # plt.plot(h['val_accuracy'])
 
-    # img_final = load_img(path,target_size=(224,224))
-    # input_arr = img_to_array(img_final)/255
+    # plt.title("acc vs val-acc")
 
-    # plt.imshow(input_arr)
-    # plt.show()
+#     test_path = "C:/Users/cycob/Downloads/brain_tumor_data_set/Brain Tumor/Cancer(770)"
 
-    # input_arr.shape
+#     img_final = load_img(test_path,target_size=(224,224))
+#     input_arr = img_to_array(img_final)/255
 
-    # input_arr = np.expand_dims(input_arr,axis=0)
+#     plt.imshow(input_arr)
+#     plt.show()
 
-    # pred = model.predict_classes(input_arr)[0][0]
+#     input_arr.shape
 
-    # if pred == 0:
-    #     print("The MRI is having a tumor")
-    # else:
-    #     print("MRI doesnt have a tumor")
+#     input_arr = np.expand_dims(input_arr,axis=0)
+
+#     pred = model.predict_classes(input_arr)[0][0]
+
+#     if pred == 0:
+#         print("The MRI is having a tumor")
+#     else:
+#         print("MRI doesnt have a tumor")
+
+brain_c()

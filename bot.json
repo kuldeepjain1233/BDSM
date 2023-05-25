@@ -1,7 +1,7 @@
 [
     {
       "user_input": ["hello", "hi", "hey", "whats", "up"],
-      "bot_response": "Hey there!\nPlease choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
+      "bot_response": "Hey there!\nHope you're having a wonderful day\n Please choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
       "necessary_words": []
     },
     {
@@ -11,33 +11,33 @@
     },
     {
         "user_input": ["how","are","you"],
-        "bot_response": "I'm great! Thanks for asking.\nPlease choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
+        "bot_response": "I'm great! Thanks for asking.\nIf you need any assistance please do enter help bot.\nThank You",
         "necessary_words": ["how","are","you"]
       },
     {
       "user_input": ["nice","to","meet","you"],
-      "bot_response": "The pleasure is all mine!\nPlease choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
+      "bot_response": "The pleasure is all mine!\nIf you need any assistance please do enter help bot.\nThank You",
       "necessary_words": ["nice","to" ,"meet", "you"]
     },
     {
         "user_input": ["I","want","to","watch","a","movies", "recommendation", "recommendations"],
-        "bot_response": "MOVIE MODEL",
+        "bot_response": "HAVE FUN WATCHIN THESE MOVIES!!!",
         "necessary_words": ["movie"] 
     },
     {
+        "user_input": ["help","bot"],
+        "bot_response": "Sure!\nPlease choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
+        "necessary_words": ["help","bot"]
+      },
+      {
+        "user_input": ["what","can","you","do"],
+        "bot_response": "I can do many things.\nPlease choose from the below options for me to assist you further\n\n1. Movie Recommendations\n2. Book Recommendtions\n3. Music Recommendations\n4. Anime Recommendations\n5. Breast Cancer Detection\n6. Brain Cancer Detection\n7. Malaria Detection\n8. Stock Price Prediction\n9. House Price Prediction",
+        "necessary_words": ["what","can","you","do"]
+      },
+    {
         "user_input": ["books", "recommendations", "recommendation", "i", "want", "to", "read", "a"],
-        "bot_response": "BOOK MODEL",
+        "bot_response": "HAVE FUN READIN THESE BOOKS!!!",
         "necessary_words": ["book"] 
-    },
-    {
-        "user_input": ["music", "recommendations", "recommendation", "i", "want", "to", "listen", "to", "a", "music", "hear", "jam"],
-        "bot_response": "MUSIC MODEL",
-        "necessary_words": ["music"] 
-    },
-    {
-        "user_input": ["I","want","to","watch","a", "an","animes", "recommendation", "recommendations"],
-        "bot_response": "ANIME MODEL",
-        "necessary_words": ["anime"] 
     },
     {
         "user_input": ["breast", "cancer", "detection"],
@@ -46,7 +46,7 @@
     },
     {
         "user_input": ["brain", "cancer", "detection"],
-        "bot_response": "BRAIN CANCER DETECTION MODEL",
+        "bot_response": "HOPE THE BRAIN IS SAFE!!!!",
         "necessary_words": ["brain"] 
     },
     {
@@ -55,9 +55,9 @@
         "necessary_words": ["malaria"] 
     },
     {
-        "user_input": ["stock", "price", "prediction", "i", "want", "predicted", "of", "a", "the", "to"],
+        "user_input": ["stocks", "price", "prediction", "i", "want", "predicted", "of", "a", "the", "to"],
         "bot_response": "HOPE YOU HAVE FUN STOCKIN!!!",
-        "necessary_words": ["stock"] 
+        "necessary_words": ["stocks"] 
     },
     {
         "user_input": ["house", "price", "prediction", "i", "want", "predicted", "of", "a", "the", "to"],

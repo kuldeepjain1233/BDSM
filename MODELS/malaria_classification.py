@@ -1,73 +1,74 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn import metrics
-from sklearn.metrics import accuracy_score,classification_report
+from sklearn.metrics import accuracy_score, classification_report
 import joblib
 import cv2
 from tkinter import *
 from tkinter import filedialog
 from matplotlib import pyplot as plt
+
+
 def malaria():
-        
-    ##step 1 Load dataset
+
+    # step 1 Load dataset
 
     dataframe = pd.read_csv(".\CSV\malaria-dataset\Malaria_datasetmain.csv")
     print("ENTER THE DATASET TO BE TESTED:")
-    dataframe2 = pd.read_csv(filedialog.askopenfilename(filetypes=(("Text files", "*.txt"), ("CSV files", "*.csv"), ("Image files", "*.png;*.jpg;*.jpeg"))))
+    dataframe2 = pd.read_csv(filedialog.askopenfilename(filetypes=(
+        ("Text files", "*.txt"), ("CSV files", "*.csv"), ("Image files", "*.png;*.jpg;*.jpeg"))))
     # dataframe2=pd.read_csv(".\CSV\malaria-dataset\Malaria_test.csv")
     # print(dataframe2.head())
 
-    #step2: Split into train and test data
+    # step2: Split into train and test data
 
-    x=dataframe.drop(["Label"],axis=1)
-    x1=dataframe2.drop(["Label"],axis=1)
-    y=dataframe["Label"]
-    y1=dataframe2["Label"]
-    x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
-    x_test=x1
-    y_test=y1
+    x = dataframe.drop(["Label"], axis=1)
+    x1 = dataframe2.drop(["Label"], axis=1)
+    y = dataframe["Label"]
+    y1 = dataframe2["Label"]
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42)
+    x_test = x1
+    y_test = y1
     # print(x_test)
     # print(y_test)
 
-    ##Step4: Build a model
+    # Step4: Build a model
 
-    model = RandomForestClassifier(n_estimators=100,max_depth=5)
-    model.fit(x_train,y_train)
-    joblib.dump(model,"rf_malaria_100_5")
+    model = RandomForestClassifier(n_estimators=100, max_depth=5)
+    model.fit(x_train, y_train)
+    joblib.dump(model, "rf_malaria_100_5")
 
-    ##Step5: Make predictions and get classification report
+    # Step5: Make predictions and get classification report
 
     predictions = model.predict(x_test)
     # print(x_test.head(1))
-    print(metrics.classification_report(predictions,y_test))
-    print(model.score(x_test,y_test))
-    ii=0
-    p=0
+    print(metrics.classification_report(predictions, y_test))
+    print(model.score(x_test, y_test))
+    ii = 0
+    p = 0
     for i in predictions:
-        if i=='Parasitized':
-            p+=1
-        if i=='Uninfected':
-            ii+=1
-    if ii>=p:
+        if i == 'Parasitized':
+            p += 1
+        if i == 'Uninfected':
+            ii += 1
+    if ii >= p:
         print('Hence we can conclude that you are Uninfected')
     else:
         print('Hence we can conclude that you are Parasitized')
 
-    mal_name=['Parasitized','Uninfected']
-    mal_val=[p,ii]
+    mal_name = ['Parasitized', 'Uninfected']
+    mal_val = [p, ii]
 
-    plt.pie(mal_val,labels=mal_name,startangle=0,shadow=True,colors=["blue","black"])
+    plt.pie(mal_val, labels=mal_name, startangle=0,
+            shadow=True, colors=["blue", "black"])
     plt.show()
-    plt.legend()
+    # plt.legend()
     window = Tk()
     # button = Button(text="Open", command=)
     # button.pack()
     window.mainloop()
-
-
-
-
 
     # dataframe = pd.read_csv("csv/datasetmain.csv")
     # # print(dataframe.head())

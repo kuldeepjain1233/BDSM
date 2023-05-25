@@ -1,5 +1,2 @@
- predictions:
-#     if i=='Parasitized':
-#         p+=1
-#     if i=='Uninfected':
-#         ii+=1
+
+# from tensorflow.keras.utils import 
