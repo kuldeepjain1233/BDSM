@@ -1,14 +1,14 @@
-from collaborativefiltering import CollaborativeRecommender, preprocessMovies
+from collaborativefiltering import CollaborativeRecommender, preprocessBooks
 from tkinter import *
 from tkinter import ttk
 
-def movie():
+def book():
     base = Tk()
     base.geometry("650x500")
-    base.title("Movie Recommendation")
+    base.title("Book Recommendation")
 
     # Movie rating label
-    rating_label = Label(base, text="select movie:", font= 'roboto')
+    rating_label = Label(base, text="select book:", font= 'roboto')
     rating_label.grid(row=0, column=0, padx=5, pady=5)
 
     def on_rating_clicked(value):
@@ -20,7 +20,7 @@ def movie():
     selected_rating = StringVar(base)
     selected_rating.set("1")
     Label(base, text= "select rating:", font= 'roboto').grid(row=0,column= 1)
-    rating_dropdown = ttk.OptionMenu(base, selected_rating, "5", *map(lambda x: str(x), range(1, 6)), command=on_rating_clicked)
+    rating_dropdown = ttk.OptionMenu(base, selected_rating, "10", *map(lambda x: str(x), range(1, 11)), command=on_rating_clicked)
     rating_dropdown.grid(row=1, column=1, padx=5, pady=5)
 
     # Entry field
@@ -28,7 +28,7 @@ def movie():
     e.grid(row=1, column=0, padx=5, pady=5)
 
     entry = []
-    rating = "5"
+    rating = "10"
 
     def myEnter(a: Event):
         # Get movie input from the entry field
@@ -46,8 +46,8 @@ def movie():
 
     def clickGetRecs():
         # Get recommendations based on the entered preferences
-        movierecom.putPrefs(entry)
-        ops = movierecom.getSimilarToMovies(15).index.to_list()[len(movierecom.prefs)+1:len(movierecom.prefs)+8]
+        bookrecom.putPrefs(entry)
+        ops = bookrecom.getSimilarToMovies(15).index.to_list()[len(bookrecom.prefs)+1: len(bookrecom.prefs)+8]
         for _ in range(len(ops)):
             reclabel = Label(base, text=f"{_+1} | {ops[_]}", justify= "left", wraplength=240, font= 'roboto 11')
             reclabel.grid(sticky=W ,row=3 + _ , column=1, padx=5, pady= 5)
@@ -56,7 +56,7 @@ def movie():
     def show_dropdown(val):
         # Create a listbox with movie suggestions
         moviesearch = e.get()
-        options = movierecom.find_closest_matches(moviesearch)[:15]
+        options = bookrecom.find_closest_matches(moviesearch)[:20]
         dropdown = Toplevel(base)
         if options and moviesearch:
             
@@ -103,13 +103,13 @@ def movie():
     butt.grid(row=2, column=1, padx=5, pady=5)
 
     # Preprocess the movie and book datasets
-    movieratings = preprocessMovies()
+    bookratings = preprocessBooks()
 
-    movierecom = CollaborativeRecommender(movieratings, 'userId', 'title', 'rating', 5 , thresh= 10)
-    
+    # bookrecom = CollaborativeRecommender(movieratings, 'userId', 'title', 'rating', 5 , thresh= 10)
+    bookrecom = CollaborativeRecommender(bookratings, 'User-ID', 'Book-Title', 'Book-Rating', highestRating = 10, thresh= 20)
     # movierecom.loadCorrelationMatrix('default-dataset')
-    movierecom.getSearchableList()
+    bookrecom.getSearchableList()
     base.mainloop()
-    movierecom.saveCorrelationMatrix('movie-corrmat')
+    bookrecom.saveCorrelationMatrix('pickles/book-corrmat')
     
-movie()
+book()

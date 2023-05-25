@@ -42,9 +42,7 @@ def house():
     cv_placeholder.place(x=100,y=105)
     # drplist.config(width=25)  
     cv.set("Shampura")  
-    # lb2= Label(base, text="Select Location", width=13,font=("arial",12))  
-    # lb2.place(x=14,y=280)  
-    # drplist.place(width=50)  
+   
 
     def myClick():
         global bhk,bath,sqft,loc
@@ -61,34 +59,12 @@ def house():
         myLabel.pack()
 
 
-        
-        
-        # myLabel2=Label(base,text=bath)
-        # myLabel2.pack()
-        # myLabel3=Label(base,text='')
-        # myLabel3.pack()
-
     myButton = Button(base,text="Submit",command=myClick)
     myButton.pack()
     print(bhk)
-
-
-
-    # for location in locations:
-    #     print(location)
-    # loc=int(input('enter choice:'))
-    # bhk=float(input('enter bhk size required:'))
-    # bath=float(input('enter number of bathrooms required:'))
-    # sqft=int(input('enter the total square feet:'))
 
     base.mainloop()  
 
 
 
-    # print(locations[loc],bhk,bath,sqft)
-
-    # input=pd.DataFrame([[locations[loc],bhk,bath,sqft]],columns=['location','total_sqft','bath','bhk'])
-
-    # prediction=pipe.predict(input)[0]*10000
-
-    # print("Rs."+str(np.round(abs(prediction),2)))
+    
