@@ -1,4 +1,4 @@
-from collaborativefiltering import CollaborativeRecommender, preprocessBooks
+from MODELS.collaborativefiltering import CollaborativeRecommender, preprocessBooks
 from tkinter import *
 from tkinter import ttk
 
@@ -112,4 +112,4 @@ def book():
     base.mainloop()
     bookrecom.saveCorrelationMatrix('pickles/book-corrmat')
     
-book()
+# book()

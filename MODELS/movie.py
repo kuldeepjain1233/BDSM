@@ -1,4 +1,4 @@
-from collaborativefiltering import CollaborativeRecommender, preprocessMovies
+from MODELS.collaborativefiltering import CollaborativeRecommender, preprocessMovies
 from tkinter import *
 from tkinter import ttk
 
@@ -105,11 +105,11 @@ def movie():
     # Preprocess the movie and book datasets
     movieratings = preprocessMovies()
 
-    movierecom = CollaborativeRecommender(movieratings, 'userId', 'title', 'rating', 5 , thresh= 10)
+    movierecom = CollaborativeRecommender(movieratings, 'userId', 'title', 'rating', 5 , 10)
     
     # movierecom.loadCorrelationMatrix('default-dataset')
     movierecom.getSearchableList()
     base.mainloop()
     movierecom.saveCorrelationMatrix('movie-corrmat')
     
-movie()
+# movie()

@@ -4,7 +4,7 @@ import os
 
 class CollaborativeRecommender :
     
-    def __init__(self, ratings: pd.DataFrame, userid, titleid, ratingid, highestRating : int, thresh = 10) -> None:
+    def __init__(self, ratings: pd.DataFrame, userid, titleid, ratingid, highestRating : int, thresh ) -> None:
         self.putDataset(ratings, userid, titleid, ratingid, highestRating )
         self.correlationMatrix = pd.DataFrame()
         self.thresh = thresh

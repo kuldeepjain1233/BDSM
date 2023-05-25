@@ -3,13 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # %matlotlib inline
 import joblib
-import chart_studio.plotly as py
-import plotly.graph_objs as go
-from plotly.offline import plot
 
-from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-
-from sklearn.model_selection import train_test_split
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
